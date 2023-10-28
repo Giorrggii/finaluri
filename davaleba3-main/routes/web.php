@@ -40,3 +40,4 @@ Route::delete('users/{id}', function ($id) {
         "msg"=> "warmatebit waishala"
     ]);
 });
+
