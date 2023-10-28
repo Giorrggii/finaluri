@@ -32,3 +32,4 @@ public function update(Request $request, $id)
 
     return redirect()->route('quiz.edit', ['id' => $quiz->id])->with('success', 'ქვიზი განახლებულია!');
 }
+
