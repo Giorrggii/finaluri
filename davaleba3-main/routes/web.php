@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/active-quizzes', [QuizController::class, 'getActiveQuizzes']);
+Route::get('/add-quizzes', [QuizController::class, 'addQuizzes']);
+Route::get('/quizzes', [QuizController::class, 'index']);
 Route::get('/post/{post?}', [PostController::class, "createOrUpdate"])->name('post');
 
 Route::get('/name', function () {
