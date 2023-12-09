@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
-
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +45,10 @@ Route::delete('users/{id}', function ($id) {
         "msg"=> "warmatebit waishala"
     ]);
 });
+
+Route::get('/custom-route', [PostController::class, 'Method'])
+->middleware('my-super-middleware');
+
+Route::get('/custom-route', [PostController::class, 'Method'])
+->middleware('my-super-restricted-middleware');
+
