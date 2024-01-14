@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzes</title>
-</head>
-<body>
-    <h1>Quizzes</h1>
-    
+@extends('layouts.app')
+
+@section('content')
+    <h1>ქვიზების სია</h1>
+
     <ul>
-        @foreach($quizzes as $quiz)
+        @foreach ($quizzes as $quiz)
             <li>
-                <strong>{{ $quiz->question }}</strong><br>
-                სათაური: {{ $quiz->option1 }}<br>
-                აღწერა: {{ $quiz->option2 }}<br>
-                ფოტო: {{ $quiz->option3 }}<br>
-                სტატუსი: {{ $quiz->option4 }}<br>
+                <h2><a href="{{ route('quizzes.show', $quiz) }}">{{ $quiz->title }}</a></h2>
+                @if ($quiz->main_photo)
+                    <img src="{{ asset('storage/' . $quiz->main_photo) }}" alt="{{ $quiz->title }}" style="max-width: 300px;">
+                @endif
+                <p>კითხვების რაოდენობა: {{ $quiz->questions->count() }}</p>
+                <p>შექმნილია {{ $quiz->created_at->format('Y-m-d H:i:s') }}</p>
             </li>
         @endforeach
     </ul>
-</body>
-</html>
+@endsection

@@ -1,10 +1,17 @@
-<form action="{{ route('quiz.create') }}" method="post">
-    @csrf
-    <label for="title">სათაური მაგალითად:</label>
-    <input type="text" id="title" name="title" required>
-    
-    <label for="description">აღწერა:</label>
-    <textarea id="description" name="description" required></textarea>
-    
-    <button type="submit">შექმნა</button>
-</form>
+@extends('layouts.app')
+
+@section('content')
+    <h1>ახალი ქვიზი</h1>
+
+    <form action="{{ route('quizzes.store') }}" method="post">
+        @csrf
+
+        <label for="title">სათაური:</label>
+        <input type="text" name="title" required>
+
+        <label for="question_count">რაოდენობა:</label>
+        <input type="number" name="question_count" required>
+
+        <button type="submit">შექმნა</button>
+    </form>
+@endsection

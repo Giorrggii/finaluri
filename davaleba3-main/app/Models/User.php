@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function quizzes()
+    {
+        return $this->belongsToMany(Quiz::class)->withPivot('answered_questions');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

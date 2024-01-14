@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,40 +19,23 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/active-quizzes', [QuizController::class, 'getActiveQuizzes']);
-Route::get('/add-quizzes', [QuizController::class, 'addQuizzes']);
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::resource('quizzes', QuizController::class);
+Route::post('quizzes/{quiz}/start', [QuizController::class, 'start'])->name('start.quiz');
+Route::post('quizzes/{quiz}/answer', [QuizController::class, 'answer'])->name('answer.quiz');
+Route::post('quizzes/{quiz}/check-answer', [QuizController::class, 'checkAnswer'])->name('check-answer.quiz');
 Route::get('/quizzes', [QuizController::class, 'index']);
 Route::get('/post/{post?}', [PostController::class, "createOrUpdate"])->name('post');
 
-Route::get('/name', function () {
-    return "giorgi";
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
+    Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
+    Route::get('/quizzes/{quiz}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
+    Route::put('/quizzes/{quiz}', [QuizController::class, 'update'])->name('quizzes.update');
+    Route::delete('/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
 });
-
-Route::get('lastname', function () {
-    return "kveladze";
-});
-
-Route::get('age', function () {
-    return "20";
-});
-
-Route::get('hobi', function () {
-    return "rame";
-});
-
-Route::get('faculty', function () {
-    return "IT";
-});
-
-Route::delete('users/{id}', function ($id) {
-    return response()->json([
-        "msg"=> "warmatebit waishala"
-    ]);
-});
-
-Route::get('/custom-route', [PostController::class, 'Method'])
-->middleware('my-super-middleware');
-
-Route::get('/custom-route', [PostController::class, 'Method'])
-->middleware('my-super-restricted-middleware');
-
