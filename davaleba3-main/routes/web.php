@@ -39,5 +39,3 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/quizzes/{quiz}', [QuizController::class, 'update'])->name('quizzes.update');
     Route::delete('/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
 });
-
-route::get(/quiz)
